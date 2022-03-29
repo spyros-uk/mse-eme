@@ -1,0 +1,38 @@
+{
+  "name": "mse-eme",
+  "version": "1.0.0",
+  "description": "A very basic MSE/EME player for knowledge gaining and experimenting purposes",
+  "main": "src/index.ts",
+  "type": "commonjs",
+  "scripts": {
+    "build:player": "ts-node --files -r tsconfig-paths/register scripts/build.ts --build=PLAYER",
+    "build:harness": "ts-node --files -r tsconfig-paths/register scripts/build.ts --build=HARNESS",
+    "serve:harness": "npx http-server harness/dist --cors --port 9090",
+    "test": "echo no testing framework in place yet... :(",
+    "format": "prettier -w --config ./config/prettier/.prettierrc './{config,harness/src,scripts,src}/**/*.{ts,tsx,yml,json}'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/spyros-uk/mse-eme.git"
+  },
+  "author": "spyros-uk",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/spyros-uk/mse-eme/issues"
+  },
+  "homepage": "https://github.com/spyros-uk/mse-eme#readme",
+  "devDependencies": {
+    "@types/yargs": "17.0.10",
+    "copy-webpack-plugin": "10.2.4",
+    "http-server": "14.1.0",
+    "prettier": "2.6.1",
+    "ts-loader": "9.2.8",
+    "ts-node": "10.7.0",
+    "tsconfig-paths": "3.14.1",
+    "tsconfig-paths-webpack-plugin": "3.5.2",
+    "typescript": "4.6.3",
+    "webpack": "5.70.0",
+    "webpack-dev-server": "4.7.4",
+    "yargs": "17.4.0"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "target": "es5",
+    "moduleResolution": "node",
+    "lib": ["esnext"],
+    "strict": true,
+    "noImplicitAny": false,
+    "downlevelIteration": true,
+    "sourceMap": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "forceConsistentCasingInFileNames": true,
+    "importHelpers": true,
+    "resolveJsonModule": true,
+    "preserveConstEnums": true
+  },
+  "exclude": ["node_modules/*"]
+}

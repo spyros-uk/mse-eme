@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.base.json",
+  "files": ["../../harness/src/index.ts"],
+  "compilerOptions": {
+    "lib": ["dom", "esnext"],
+    "target": "es5",
+    "module": "esnext",
+    "outDir": "../../harness/dist"
+  }
+}
