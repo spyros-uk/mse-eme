@@ -1,3 +1,5 @@
-import { createPlayer } from "../../src"
+import { createPlayer } from "../../src";
 
-createPlayer()
+const wrapperElement = document.querySelector("#wrapper");
+
+if (wrapperElement) createPlayer(wrapperElement);

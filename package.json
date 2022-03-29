@@ -21,6 +21,9 @@
     "url": "https://github.com/spyros-uk/mse-eme/issues"
   },
   "homepage": "https://github.com/spyros-uk/mse-eme#readme",
+  "prettier": {
+    "semi": false
+  },
   "devDependencies": {
     "@types/yargs": "17.0.10",
     "copy-webpack-plugin": "10.2.4",
@@ -30,9 +33,9 @@
     "ts-node": "10.7.0",
     "tsconfig-paths": "3.14.1",
     "tsconfig-paths-webpack-plugin": "3.5.2",
+    "tslib": "2.3.1",
     "typescript": "4.6.3",
     "webpack": "5.70.0",
-    "webpack-dev-server": "4.7.4",
     "yargs": "17.4.0"
   }
 }
