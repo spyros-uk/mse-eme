@@ -3,6 +3,7 @@ import { promiseFromDomEvent } from "./utils/promiseFromDomEvent"
 export {
   attachVideoSourceBuffer,
   attachAudioSourceBuffer,
+  removeSourceBuffer,
   appendSegmentToSourceBuffer,
 }
 
@@ -10,13 +11,19 @@ function attachVideoSourceBuffer(
   mediaSource: MediaSource,
   mimeType: string = 'video/mp4;codecs="avc1.4d4020"'
 ): SourceBuffer {
-  if (!isMimeTypeSupported(mediaSource, mimeType)) return null
-  return attachSourceBuffer(mediaSource, mimeType)
+  return checkMimetypeSupportAndAttachSourceBuffer(mediaSource, mimeType)
 }
 
 function attachAudioSourceBuffer(
   mediaSource: MediaSource,
   mimeType: string = 'audio/mp4;codecs="mp4a.40.2"'
+): SourceBuffer {
+  return checkMimetypeSupportAndAttachSourceBuffer(mediaSource, mimeType)
+}
+
+function checkMimetypeSupportAndAttachSourceBuffer(
+  mediaSource: MediaSource,
+  mimeType: string
 ): SourceBuffer {
   if (!isMimeTypeSupported(mediaSource, mimeType)) return null
   return attachSourceBuffer(mediaSource, mimeType)
@@ -37,6 +44,13 @@ function attachSourceBuffer(
   mimeType: string
 ): SourceBuffer {
   return mediaSource.addSourceBuffer(mimeType)
+}
+
+function removeSourceBuffer(
+  mediaSource: MediaSource,
+  sourceBuffer: SourceBuffer
+): void {
+  return mediaSource.removeSourceBuffer(sourceBuffer)
 }
 
 async function appendSegmentToSourceBuffer(

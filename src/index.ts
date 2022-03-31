@@ -1,11 +1,13 @@
 import { createAndAppendVideoElement } from "./domManager"
-import { attachMediaSource } from "./mediaSourceManager"
+import { attachMediaSource, signalEndOfStream } from "./mediaSourceManager"
 import {
   appendSegmentToSourceBuffer,
   attachAudioSourceBuffer,
   attachVideoSourceBuffer,
+  removeSourceBuffer,
 } from "./souceBufferManager"
 import { getAudioTestSegments, getVideoTestSegments } from "./downloader"
+import { promiseFromDomEvent } from "./utils/promiseFromDomEvent"
 
 export { createPlayer }
 
@@ -26,5 +28,11 @@ async function createPlayer(wrapperElement: Element) {
     await appendSegmentToSourceBuffer(audioSegment, audioSourceBuffer)
   }
 
+  signalEndOfStream(mediaSource)
+
   await videoElement.play()
+
+  await promiseFromDomEvent(videoElement, "ended")
+  removeSourceBuffer(mediaSource, videoSourceBuffer)
+  removeSourceBuffer(mediaSource, audioSourceBuffer)
 }

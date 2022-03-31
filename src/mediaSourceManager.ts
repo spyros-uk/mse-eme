@@ -1,6 +1,6 @@
 import { promiseFromDomEvent } from "./utils/promiseFromDomEvent"
 
-export { attachMediaSource }
+export { attachMediaSource, signalEndOfStream }
 
 async function attachMediaSource(
   videoElement: HTMLVideoElement,
@@ -12,6 +12,10 @@ async function attachMediaSource(
   await promiseFromDomEvent(mediaSource, "sourceopen")
 
   return mediaSource
+}
+
+function signalEndOfStream(mediaSource: MediaSource): void {
+  mediaSource.endOfStream()
 }
 
 function checkMediaSourceSupport(): Error | void {
