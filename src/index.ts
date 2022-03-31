@@ -7,7 +7,7 @@ import {
   removeSourceBuffer,
 } from "./souceBufferManager"
 import { getAudioTestSegments, getVideoTestSegments } from "./downloader"
-import { promiseFromDomEvent } from "./utils/promiseFromDomEvent"
+import { hasVideoEnded, play } from "./playbackManager"
 
 export { createPlayer }
 
@@ -30,9 +30,9 @@ async function createPlayer(wrapperElement: Element) {
 
   signalEndOfStream(mediaSource)
 
-  await videoElement.play()
+  await play(videoElement)
 
-  await promiseFromDomEvent(videoElement, "ended")
+  await hasVideoEnded(videoElement)
   removeSourceBuffer(mediaSource, videoSourceBuffer)
   removeSourceBuffer(mediaSource, audioSourceBuffer)
 }
