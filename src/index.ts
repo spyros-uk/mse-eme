@@ -1,38 +1,30 @@
+import { createAndAppendVideoElement } from "./domManager"
+import { attachMediaSource } from "./mediaSourceManager"
+import {
+  appendSegmentToSourceBuffer,
+  attachAudioSourceBuffer,
+  attachVideoSourceBuffer,
+} from "./souceBufferManager"
+import { getAudioTestSegments, getVideoTestSegments } from "./downloader"
+
 export { createPlayer }
 
-const DEFAULT_AUDIO_MIME = 'audio/mp4;codecs="mp4a.40.2"'
-const DEFAULT_VIDEO_MIME = 'video/mp4;codecs="avc1.4d4020"'
-
 async function createPlayer(wrapperElement: Element) {
-  console.log("Create player")
   const videoElement = createAndAppendVideoElement(wrapperElement)
   const mediaSource = await attachMediaSource(videoElement)
-  console.log(videoElement, mediaSource)
-  // TODO: Attach source buffers
-}
+  const videoSourceBuffer = attachVideoSourceBuffer(mediaSource)
+  const audioSourceBuffer = attachAudioSourceBuffer(mediaSource)
 
-function createAndAppendVideoElement(wrapperElement: Element) {
-  const videoElement = document.createElement("video")
-  wrapperElement.append(videoElement)
-  return videoElement
-}
+  const videoSegments = await getVideoTestSegments()
+  const audioSegments = await getAudioTestSegments()
 
-async function attachMediaSource(
-  videoElement: HTMLVideoElement
-): Promise<MediaSource> {
-  const mediaSource = new MediaSource()
-  videoElement.src = URL.createObjectURL(mediaSource)
+  for (const videoSegment of videoSegments) {
+    await appendSegmentToSourceBuffer(videoSegment, videoSourceBuffer)
+  }
 
-  await promiseFromDomEvent(mediaSource, "sourceopen")
-  return mediaSource
-}
+  for (const audioSegment of audioSegments) {
+    await appendSegmentToSourceBuffer(audioSegment, audioSourceBuffer)
+  }
 
-function promiseFromDomEvent(target: EventTarget, eventName: string) {
-  return new Promise((resolve, reject) => {
-    const timeout = setTimeout(() => reject, 10000)
-    target.addEventListener(eventName, (e) => {
-      clearTimeout(timeout)
-      resolve(e)
-    })
-  })
+  await videoElement.play()
 }

@@ -1,16 +1,17 @@
-import * as path from "path";
-import { Configuration } from "webpack";
-import TsConfigPathsWebpackPlugin from "tsconfig-paths-webpack-plugin";
-import CopyWebpackPlugin from "copy-webpack-plugin";
+import * as path from "path"
+import { Configuration } from "webpack"
+import TsConfigPathsWebpackPlugin from "tsconfig-paths-webpack-plugin"
+// @ts-ignore
+import CopyWebpackPlugin from "copy-webpack-plugin"
 
 export function getHarnessDevConfig(): Configuration {
-  const ROOT = path.resolve(__dirname, "..", "..");
+  const ROOT = path.resolve(__dirname, "..", "..")
 
   process.env.TS_NODE_PROJECT = path.join(
     path.resolve(__dirname, ".."),
     "typescript",
     "tsconfig.harness.json"
-  );
+  )
 
   return {
     mode: "development",
@@ -78,5 +79,5 @@ export function getHarnessDevConfig(): Configuration {
     performance: {
       hints: "warning",
     },
-  };
+  }
 }
